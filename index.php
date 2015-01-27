@@ -1,12 +1,14 @@
 <?php 
+require_once("./inc/config.php");
+
 $pageTitle = "Unique T-shirts designed by a frog";
-include('inc/header.php'); ?>
+include(ROOT_PATH . 'inc/header.php'); ?>
 
 		<div class="section banner">
 
 			<div class="wrapper">
 
-				<img class="hero" src="img/mike-the-frog.png" alt="Mike the Frog says:">
+				<img class="hero" src="<?php echo BASE_URL; ?>img/mike-the-frog.png" alt="Mike the Frog says:">
 				<div class="button">
 					<a href="shirts.php">
 						<h2>Hey, I&rsquo;m Mike!</h2>
@@ -23,7 +25,7 @@ include('inc/header.php'); ?>
 
 				<h2>Mike&rsquo;s Latest Shirts</h2>
 
-				<?php include("inc/products.php"); ?>
+				<?php include(ROOT_PATH . "inc/products.php"); ?>
 				<ul class="products">
 					<?php 
 
@@ -45,6 +47,6 @@ include('inc/header.php'); ?>
 		</div>
 
 	</div>
-<?php include('inc/footer.php'); ?>
+<?php include(ROOT_PATH . 'inc/footer.php'); ?>
 
 	
