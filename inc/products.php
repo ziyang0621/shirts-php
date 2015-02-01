@@ -14,6 +14,11 @@ function get_list_view_html($product) {
     return $output;
 }
 
+/*
+ * Loops through all the products, looking for a search term in the product names
+ * @param  string   $s   the search term
+ * @return array         a list of the products that contain the search term in their name 
+*/
 function get_products_recent() {
     $recent = array();
     $all = get_products_all();
@@ -40,6 +45,24 @@ function get_products_search($s) {
         }
     }
     return $results;
+}
+
+function get_products_count() {
+    return count(get_products_all());
+}
+
+function get_products_subset($positionStart, $positionEnd) {
+    $subset = array();
+    $all = get_products_all();
+
+    $position = 0;
+    foreach($all as $product) {
+        $position += 1;
+        if ($position >= $positionStart && $position <= $positionEnd) {
+            $subset[] = $product;
+        }
+    }
+    return $subset;
 }
 
 function get_products_all() {
