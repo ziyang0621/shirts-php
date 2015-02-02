@@ -66,6 +66,8 @@ function get_products_subset($positionStart, $positionEnd) {
 }
 
 function get_products_all() {
+
+    /*
     $products = array();
     $products[101] = array(
     	"name" => "Logo Shirt, Red",
@@ -294,15 +296,45 @@ function get_products_all() {
 
     foreach ($products as $product_id => $product) {
         $products[$product_id]["sku"] = $product_id;
+    } */
+
+    require(ROOT_PATH . "inc/database.php");
+
+    try {
+        $results = $db->query("SELECT name, price, img, sku, paypal FROM products ORDER BY sku ASC");
+    } catch (Exception $e) {
+        echo "Data could not be retrieved from the database";
+        exit;
     }
+
+    $products = $results->fetchAll(PDO::FETCH_ASSOC);
 
     return $products;
 }
 
+/*
+ * Returns an array of product informatino for the product that matches the sku;
+ * returns a boolean false if no product matches the sku
+ * @param int  $sku  the sku
+ * @return mixed array list of product information for the one matching product 
+ *               bool  false if no proudct matches
+ */
+function get_product_single($sku) {
 
+    require(ROOT_PATH . "inc/database.php");
 
+    try {
+        $results = $db->prepare("SELECT name, price, img, sku, paypal FROM products WHERE sku = ?");
+        $results->bindParam(1, $sku);
+        $results->execute();
+    } catch (Exception $e) {
+        echo "Data could not be retrieved from the database";
+        exit;    
+    }
 
+    $product = $results->fetch(PDO::FETCH_ASSOC);
 
-
+    return $product; 
+}
 
 ?>
